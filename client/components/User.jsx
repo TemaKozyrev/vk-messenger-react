@@ -1,6 +1,6 @@
 import React, { PropTypes, Component } from 'react'
 
-export default class Chat extends Component {
+export default class User extends Component {
 
     render() {
         const { name, error } = this.props
@@ -20,7 +20,7 @@ export default class Chat extends Component {
     }
 }
 
-Chat.propTypes = {
+User.propTypes = {
     name: PropTypes.string.isRequired,
     handleLogin: PropTypes.func.isRequired,
     error: PropTypes.string.isRequired

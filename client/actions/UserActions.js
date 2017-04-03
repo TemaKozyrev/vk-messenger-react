@@ -28,7 +28,7 @@ export function handleLogin() {
                     payload: new Error('Ошибка авторизации')
                 })
             }
-        },4);
+        }, 4096);
     }
 
 }

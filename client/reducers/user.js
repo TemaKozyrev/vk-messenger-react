@@ -20,5 +20,4 @@ export default function token(state = initialState, action) {
         default:
             return state
     }
-
 }
