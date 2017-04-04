@@ -1,12 +1,12 @@
 import React, {Component} from 'react'
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
-import User from '../components/User.jsx'
-import Dialog from '../components/Dialog.jsx'
+import User from './User.jsx'
+import Dialog from './Dialog.jsx'
 import * as userActions from '../actions/UserActions'
 import * as chatActions from '../actions/ChatActions'
 
-class App extends Component {
+class Home extends Component {
     render() {
         const {user, chat} = this.props
         const {handleLogin} = this.props.userActions
@@ -33,4 +33,4 @@ function mapDispatchToProps(dispatch) {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(App)
+export default connect(mapStateToProps, mapDispatchToProps)(Home)
