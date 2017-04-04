@@ -10,7 +10,7 @@ export default class User extends Component {
             template = <p>{name}</p>
         } else {
 
-            template = <button className='btn' onClick={this.props.handleLogin}>Войти</button>
+            template = <button className='btn' onClick={this.props.redirect}>Войти</button>
         }
 
         return <div className='ib user'>
@@ -22,6 +22,6 @@ export default class User extends Component {
 
 User.propTypes = {
     name: PropTypes.string.isRequired,
-    handleLogin: PropTypes.func.isRequired,
+    redirect: PropTypes.func.isRequired,
     error: PropTypes.string.isRequired
 }

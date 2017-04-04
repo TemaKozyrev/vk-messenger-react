@@ -9,11 +9,11 @@ import * as chatActions from '../actions/ChatActions'
 class Home extends Component {
     render() {
         const {user, chat} = this.props
-        const {handleLogin} = this.props.userActions
+        const {redirect} = this.props.userActions
         const {getChat} = this.props.chatActions
 
         return <div className='row'>
-            <User name={user.name} handleLogin={handleLogin} error={user.error}/>
+            <User name={user.name} redirect={redirect} error={user.error}/>
             <Dialog id={chat.id} getChat={getChat} error={chat.error} title={chat.title} users={chat.users}/>
         </div>
     }
