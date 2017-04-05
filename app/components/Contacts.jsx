@@ -8,7 +8,9 @@ let SelectableList = makeSelectable(List);
 const styles = {
     width: 500,
     height: 450,
-    overflowY: 'auto'
+    overflowY: 'auto',
+    lineHeight: 450,
+    marginTop: 10
 };
 
 function wrapState(ComposedComponent) {
@@ -50,7 +52,7 @@ function wrapState(ComposedComponent) {
 SelectableList = wrapState(SelectableList);
 
 const Contacts = (props) => (
-    <div style={styles} className="flex-item">
+    <div style={styles}>
         <SelectableList id={props.id} friends={props.friends} getPhotos={props.getPhotos}>
             <Subheader>Selectable Contacts</Subheader>
             {props.friends.map((friend) => (

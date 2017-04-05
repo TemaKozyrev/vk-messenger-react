@@ -5,20 +5,23 @@ const styles = {
     root: {
         display: 'flex',
         flexWrap: 'wrap',
-        justifyContent: 'space-around',
+        justifyContent: 'space-around'
     },
     gridList: {
         width: 500,
         height: 450,
         overflowY: 'auto',
     },
+    flexItem: {
+        marginTop: 10
+    }
 };
 
 export default class PhotoList extends Component {
 
     render() {
         const {photos} = this.props
-        return <div className='flex-item'>
+        return <div style={styles.flexItem}>
 
             <div style={styles.root}>
                 <GridList
