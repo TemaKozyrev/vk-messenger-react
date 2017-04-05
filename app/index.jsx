@@ -11,6 +11,7 @@ import createHistory from 'history/createBrowserHistory';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import configureStore from './store/configureStore';
 import App from './components/App';
+import './assets/global.css';
 
 injectTapEventPlugin();
 

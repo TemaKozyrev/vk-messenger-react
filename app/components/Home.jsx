@@ -2,19 +2,20 @@ import React, {Component} from 'react'
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import User from './User.jsx'
-import Dialog from './Dialog.jsx'
+import PhotoList from './PhotoList.jsx'
+import Contacts from './Contacts.jsx'
 import * as userActions from '../actions/UserActions'
-import * as chatActions from '../actions/ChatActions'
+import * as photosActions from '../actions/PhotosActions'
 
 class Home extends Component {
     render() {
-        const {user, chat} = this.props
-        const {redirect} = this.props.userActions
-        const {getChat} = this.props.chatActions
+        const {user, photos} = this.props
+        const {handleLogin} = this.props.userActions
+        const {getPhotos} = this.props.photosActions
 
-        return <div className='row'>
-            <User name={user.name} redirect={redirect} error={user.error}/>
-            <Dialog id={chat.id} getChat={getChat} error={chat.error} title={chat.title} users={chat.users}/>
+        return <div>
+            {user.load ? <div className="flex-container"><Contacts id={user.id} friends={user.friends} getPhotos={getPhotos}/><PhotoList error={photos.error} photos={photos.photos} /></div> : <User handleLogin={handleLogin} error={user.error}/>}
+
         </div>
     }
 }
@@ -22,14 +23,14 @@ class Home extends Component {
 function mapStateToProps(state) {
     return {
         user: state.user,
-        chat: state.chat
+        photos: state.photos
     }
 }
 
 function mapDispatchToProps(dispatch) {
     return {
         userActions: bindActionCreators(userActions, dispatch),
-        chatActions: bindActionCreators(chatActions, dispatch)
+        photosActions: bindActionCreators(photosActions, dispatch)
     }
 }
 

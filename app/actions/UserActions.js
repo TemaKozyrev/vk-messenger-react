@@ -1,29 +1,51 @@
 import {
     LOGIN_REQUEST,
     LOGIN_SUCCES,
-    LOGIN_FAIL
+    LOGIN_FAIL,
+    FRIENDS_REQUEST,
+    FRIENDS_SUCCES
 } from '../constants/user'
 
-export function redirect() {
+export function handleLogin() {
 
-    return function(dispatch) {
+    return function (dispatch) {
 
         dispatch({
             type: LOGIN_REQUEST
         })
 
-        window.location.replace('https://oauth.vk.com/authorize?client_id=5964528&display=page&redirect_uri=https://oauth.vk.com/blank.html&scope=messages&response_type=token&v=5.63&state=123456')
-    }
+        VK.Auth.login((r) => {
+            if (r.session) {
 
+                getFriends(r.session.user.id, dispatch)
+
+                dispatch({
+                    type: LOGIN_SUCCES,
+                    payload: {username: r.session.user.first_name, id: r.session.user.id}
+                })
+
+
+            } else {
+                dispatch({
+                    type: LOGIN_FAIL,
+                    error: true,
+                    payload: new Error('Ошибка авторизации')
+                })
+            }
+        }, 4, 2);
+    }
 }
 
-export function getToken(url) {
-    return (dispatch) => {
+function getFriends(id, dispatch) {
+    dispatch({
+        type: FRIENDS_REQUEST
+    })
+
+    VK.Api.call('friends.get', {user_id: +id, fields: 'nickname,photo_100', count: 200}, (r) => {
         dispatch({
-            type: LOGIN_SUCCES,
-            payload: id
+            type: FRIENDS_SUCCES,
+            payload: {friends: r.response}
         })
 
-        LoadChat(id, dispatch)
-    }
+    })
 }

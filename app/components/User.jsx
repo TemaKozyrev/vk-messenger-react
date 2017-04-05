@@ -1,27 +1,23 @@
 import React, { PropTypes, Component } from 'react'
+import RaisedButton from 'material-ui/RaisedButton';
 
 export default class User extends Component {
 
     render() {
-        const { name, error } = this.props
-        let template
+        const { error } = this.props
 
-        if (name !== '') {
-            template = <p>{name}</p>
-        } else {
+        const style = {
+            margin: 12,
+        };
 
-            template = <button className='btn' onClick={this.props.redirect}>Войти</button>
-        }
-
-        return <div className='ib user'>
-            {template}
+        return <div>
+            <RaisedButton label="Войти" primary={true} style={style} onClick={this.props.handleLogin}/>
             {error ? <p className='error'> {error}. <br /> Попробуйте еще раз.</p> : ''}
         </div>
     }
 }
 
 User.propTypes = {
-    name: PropTypes.string.isRequired,
-    redirect: PropTypes.func.isRequired,
+    handleLogin: PropTypes.func.isRequired,
     error: PropTypes.string.isRequired
 }

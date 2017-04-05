@@ -1,8 +1,11 @@
 import { combineReducers } from 'redux'
+import { routerReducer } from 'react-router-redux'
 import user from './user'
-import chat from './chat'
+import photos from './photos'
+
 
 export default combineReducers({
     user,
-    chat
+    photos,
+    routing: routerReducer
 })
