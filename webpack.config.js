@@ -1,23 +1,58 @@
-const path = require('path');
+const webpack = require('webpack');
+const merge = require('webpack-merge');
+const commonConfig = require('./webpack.config.common');
 
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
-    template: './client/index.html',
-    filename: 'index.html',
-    inject: 'body'
-})
+module.exports = merge(commonConfig, {
+    devtool: 'cheap-module-eval-source-map',
 
-module.exports = {
-    entry: './client/index.js',
-    output: {
-        path: path.resolve('dist'),
-        filename: 'index_bundle.js'
-    },
+    entry: [
+        'react-hot-loader/patch',
+        'webpack-dev-server/client?http://localhost:3000',
+        'webpack/hot/only-dev-server',
+        './app/index.jsx',
+    ],
+
     module: {
-        loaders: [
-            { test: /\.js$/, loader: 'babel-loader', exclude: /node_modules/ },
-            { test: /\.jsx$/, loader: 'babel-loader', exclude: /node_modules/ }
-        ]
+        rules: [
+            {
+                test: /\.css$/,
+                use: [
+                    {
+                        loader: 'style-loader',
+                        options: {
+                            sourceMap: true,
+                        },
+                    },
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            modules: true,
+                            importLoaders: 1,
+                            localIdentName: '[path]___[name]__[local]___[hash:base64:5]',
+                        },
+                    },
+                    'postcss-loader',
+                ],
+            },
+        ],
     },
-    plugins: [HtmlWebpackPluginConfig]
-}
+
+    plugins: [
+        new webpack.DefinePlugin({
+            'process.env': {
+                NODE_ENV: '"development"',
+            },
+            __DEVELOPMENT__: true,
+        }),
+        new webpack.HotModuleReplacementPlugin(),
+        new webpack.NamedModulesPlugin(),
+        new webpack.NoEmitOnErrorsPlugin(),
+    ],
+
+    devServer: {
+        host: 'localhost',
+        port: 3000,
+        historyApiFallback: true,
+        hot: true,
+    },
+});
